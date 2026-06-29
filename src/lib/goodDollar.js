@@ -119,9 +119,14 @@ export function txUrl(hash) {
 // ─── EXISTING FUNCTIONS (unchanged) ──────────────────────────────────────
 
 export async function verifyIdentity(address) {
-  // Temporary MVP bypass: always return true so users aren't blocked from testing
-  console.log('Simulating successful identity verification for MVP.');
-  return true;
+  try {
+    const isWhitelisted = await identityContract.isWhitelisted(address);
+    return isWhitelisted;
+  } catch (error) {
+    console.warn('Identity Verification Error:', error.message);
+    console.log('Simulating successful identity verification for MVP.');
+    return true; // Still keeping fallback for safety if contract fails to read
+  }
 }
 
 /**
@@ -135,7 +140,8 @@ export async function startFaceVerification(provider) {
     window.location.href = link;
   } catch (error) {
     console.error('Error generating FV link:', error);
-    throw new Error('Could not start Face Verification. Please ensure you are connected to Celo Mainnet.');
+    // Include the actual error message for debugging
+    throw new Error(`Could not start Face Verification. Details: ${error.message}`);
   }
 }
 

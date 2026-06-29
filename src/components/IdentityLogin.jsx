@@ -12,7 +12,7 @@ export default function IdentityLogin({ onLogin, onBack }) {
   const [unverifiedAddress, setUnverifiedAddress] = useState(null);
   const [acceptedTerms, setAcceptedTerms] = useState(false);
 
-  const { address, isConnected } = useAccount();
+  const { address, isConnected, connector } = useAccount();
 
   const handleWorkerLogin = async () => {
     if (!isConnected) return;
@@ -21,7 +21,6 @@ export default function IdentityLogin({ onLogin, onBack }) {
     setUnverifiedAddress(null);
     setLoading(true);
     try {
-      // Temporary override for demo purposes if needed, otherwise rely on actual Celo check
       const isVerified = await verifyIdentity(address);
       
       if (isVerified) {
@@ -40,11 +39,20 @@ export default function IdentityLogin({ onLogin, onBack }) {
   const handleStartFaceVerification = async () => {
     try {
       setLoading(true);
-      if (window.ethereum) {
-         const provider = new ethers.providers.Web3Provider(window.ethereum);
+      
+      // Get the underlying EIP-1193 provider from Wagmi (supports WalletConnect & injected wallets)
+      let eip1193Provider;
+      if (connector) {
+        eip1193Provider = await connector.getProvider();
+      } else if (window.ethereum) {
+        eip1193Provider = window.ethereum;
+      }
+      
+      if (eip1193Provider) {
+         const provider = new ethers.providers.Web3Provider(eip1193Provider);
          await startFaceVerification(provider);
       } else {
-         throw new Error("Web3 provider not found. Face verification requires a browser wallet.");
+         throw new Error("Web3 provider not found. Please connect a wallet first.");
       }
     } catch (e) {
       setErrorMsg(e.message);
