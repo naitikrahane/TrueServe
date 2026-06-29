@@ -123,9 +123,8 @@ export async function verifyIdentity(address) {
     const isWhitelisted = await identityContract.isWhitelisted(address);
     return isWhitelisted;
   } catch (error) {
-    console.warn('Identity Verification Error:', error.message);
-    console.log('Simulating successful identity verification for MVP.');
-    return true; // Still keeping fallback for safety if contract fails to read
+    console.error('Identity Verification Error:', error.message);
+    return false; // Strictly enforce KYC - return false on error
   }
 }
 
