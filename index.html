@@ -16,8 +16,15 @@
       // Block fetch()
       const _fetch = window.fetch;
       window.fetch = async (...args) => {
-        const url = typeof args[0] === 'string' ? args[0] : args[0]?.url;
-        if (isBlocked(url)) return new Response('{}', { status: 200, headers: { 'Content-Type': 'application/json' } });
+        let urlStr = '';
+        if (typeof args[0] === 'string') urlStr = args[0];
+        else if (args[0] instanceof URL) urlStr = args[0].href;
+        else if (args[0]?.url) urlStr = args[0].url;
+        else if (args[0]?.toString) urlStr = args[0].toString();
+        
+        if (isBlocked(urlStr)) {
+          return new Response('{}', { status: 200, headers: { 'Content-Type': 'application/json' } });
+        }
         return _fetch(...args);
       };
 
