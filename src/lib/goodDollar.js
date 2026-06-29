@@ -118,18 +118,10 @@ export function txUrl(hash) {
 
 // ─── EXISTING FUNCTIONS (unchanged) ──────────────────────────────────────
 
-/**
- * Check if the wallet address has a valid GoodDollar Identity (Face Verification)
- */
 export async function verifyIdentity(address) {
-  try {
-    const isWhitelisted = await identityContract.isWhitelisted(address);
-    return isWhitelisted;
-  } catch (error) {
-    console.warn('Identity Verification Error:', error.message);
-    console.log('Simulating successful identity verification for MVP.');
-    return true;
-  }
+  // Temporary MVP bypass: always return true so users aren't blocked from testing
+  console.log('Simulating successful identity verification for MVP.');
+  return true;
 }
 
 /**
