@@ -1,30 +1,34 @@
-# TrueServe
+# TrueServe — The Sovereign Engine for Human Insights
 
-**TrueServe** is a sovereign engine for human insights. It eliminates bots and Sybil attacks from Web3 research by allowing creators to connect directly with their community using token-gated surveys, zero-knowledge proofs, and instant Celo micropayments.
+**TrueServe** is a decentralized, Sybil-resistant Web3 research platform built to guarantee 100% human participation. It eliminates bots, AI spam, and Sybil attacks from surveys, data collection, and community feedback by leveraging token-gated access, zero-knowledge proofs, and instant Celo micropayments.
 
-## Features
+> **⚠️ Project Status: Early Alpha**
+> The core functionality, UI/UX, and smart contracts are built and almost live! We are currently running final tests and making minor/minute adjustments before the official mainnet launch.
 
-- **Sybil-Resistant**: Uses GoodDollar verification and optionally zero-knowledge proofs to ensure only unique humans participate.
-- **Instant Micropayments**: Powered by the Celo blockchain, workers get paid instantly upon task approval.
-- **Creator Dashboard**: Easily create surveys, token-gate them, and review submissions.
-- **Worker Dashboard**: Find available tasks, earn G$ (GoodDollar), and build up your trust score.
-- **Decentralized Storage**: Survey data and metadata are pinned on IPFS.
+## 🌟 Why TrueServe?
 
-## Tech Stack
+In the current Web3 and Web2 landscape, data is often polluted by automated bots. Researchers and creators lose money rewarding fake participants. TrueServe solves this by ensuring that **every single data point comes from a verified, unique human being**.
 
-- **Frontend**: React (Vite), JavaScript
-- **Styling**: Vanilla CSS with modern UI/UX design
+- **Creators & Researchers** can launch fully sovereign surveys, token-gate them, set GoodDollar (G$) rewards in escrow, and confidently collect pristine data.
+- **Earners & Community Members** can monetize their attention and insights, building an on-chain trust score while earning instant micro-rewards for their time.
+
+## 💰 GoodDollar (G$) Integration
+
+TrueServe utilizes **GoodDollar (G$)**, a reserve-backed protocol that distributes a basic income token, as the backbone of its economic model.
+
+- **Sybil Resistance via G$ Verification:** To participate and earn, workers must authenticate through GoodDollar's Identity verification. This acts as a robust, decentralized "Proof of Personhood," ensuring one wallet equals one real human.
+- **Escrow & Instant Micropayments:** Creators deposit G$ into the TrueServe smart contract when creating a task. Upon successful completion and approval, the smart contract instantly releases the G$ directly to the earner's Celo wallet. 
+- **Gas-efficient on Celo:** By leveraging the Celo blockchain, G$ transactions cost fractions of a cent, making high-volume, low-value micropayments viable for surveys.
+
+## 🛠️ Tech Stack
+
+- **Frontend**: React + Vite
+- **Styling**: Vanilla CSS (Premium, Glassmorphism Design System)
 - **Blockchain**: Celo / Solidity
 - **Web3 Integrations**: Reown AppKit (WalletConnect), Wagmi, viem
-- **Storage**: IPFS via Pinata
+- **Storage**: IPFS via Pinata (for decentralized storage of survey metadata and submission proofs)
 
-## Prerequisites
-
-- Node.js (v18+)
-- A modern Web3 wallet (e.g., MetaMask, Backpack)
-- Some Celo or testnet Celo for gas
-
-## Getting Started
+## 🚀 Getting Started (Local Development)
 
 1. **Clone the repository:**
    ```bash
@@ -48,7 +52,7 @@
    npm run dev
    ```
 
-## Smart Contracts
+## 📜 Smart Contracts
 
 The contracts are located in the `contracts/` directory. You can use Hardhat to compile and deploy them to the Celo network.
 
@@ -57,10 +61,10 @@ npx hardhat compile
 npx hardhat run scripts/deploy.js --network celo
 ```
 
-## Contributing
+## 🤝 Contributing
 
-Contributions are welcome! Please open an issue or submit a pull request if you have ideas for improvements.
+Contributions are welcome! As we finalize our early alpha, please open an issue or submit a pull request if you have ideas for improvements, UX tweaks, or feature requests.
 
-## License
+## 📄 License
 
 This project is open-source and available under the MIT License.
