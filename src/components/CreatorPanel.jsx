@@ -486,10 +486,10 @@ function CreateCampaignView({ onCampaignCreated }) {
                     </select>
                   </Field>
                   <Field label="Reward per User (G$)" required>
-                    <input type="number" placeholder="e.g. 500" value={campaignData.reward} onChange={e => setCampaignData(d => ({ ...d, reward: e.target.value }))} style={inputStyle} />
+                    <input type="number" min="0" step="any" placeholder="e.g. 500" value={campaignData.reward} onChange={e => setCampaignData(d => ({ ...d, reward: Math.max(0, e.target.value) }))} style={inputStyle} />
                   </Field>
                   <Field label="Max Participants" required>
-                    <input type="number" placeholder="e.g. 100" value={campaignData.participants} onChange={e => setCampaignData(d => ({ ...d, participants: e.target.value }))} style={inputStyle} />
+                    <input type="number" min="1" step="1" placeholder="e.g. 100" value={campaignData.participants} onChange={e => setCampaignData(d => ({ ...d, participants: Math.max(1, e.target.value) }))} style={inputStyle} />
                   </Field>
                 </div>
                 <Field label="Description (shown to participants)">

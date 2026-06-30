@@ -62,8 +62,9 @@ export default function Docs() {
     { id: 'smart-contracts', label: 'Smart Contracts', icon: Code },
     { id: 'identity-sdk', label: 'Identity SDK', icon: ShieldIcon },
     { id: 'task-types', label: 'Task Types', icon: Check },
-    { id: 'payment-flow', label: 'Payment Flow', icon: Zap },
     { id: 'api-reference', label: 'API Reference', icon: LinkIcon },
+    { id: 'trueserve-basics', label: 'TrueServe Basics', icon: BookOpen },
+    { id: 'goodbuilders', label: 'GoodBuilders App', icon: ShieldIcon },
     { id: 'faq', label: 'FAQ', icon: Key }
   ];
 
@@ -257,6 +258,50 @@ const checkHumanity = async (walletAddress) => {
               <li style={{ display: 'flex', alignItems: 'center', gap: 8 }}><span style={{ fontWeight: 700, color: 'var(--text-main)' }}>2%</span> - TrueServe platform fee.</li>
               <li style={{ display: 'flex', alignItems: 'center', gap: 8, fontStyle: 'italic', marginTop: 8 }}>* 100% of TrueServe fees are periodically donated back to the GoodDollar UBI reserve.</li>
             </ul>
+          </div>
+        </section>
+
+        {/* TRUESERVE BASICS */}
+        <section id="trueserve-basics" style={{ marginBottom: 80 }}>
+          <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: 24, borderBottom: '1px solid var(--border-light)', paddingBottom: 16 }}>TrueServe Basics & Architecture</h2>
+          <p style={{ color: 'var(--text-muted)', lineHeight: 1.6, marginBottom: 24 }}>
+            TrueServe is a revolutionary, decentralized, Sybil-resistant Web3 research platform designed from the ground up to guarantee 100% human participation in data collection, surveys, and community feedback mechanisms.
+          </p>
+          <div style={{ display: 'grid', gap: 24 }}>
+            <div style={{ background: 'var(--bg-card)', padding: 24, borderRadius: 16, border: '1px solid var(--border-light)' }}>
+              <h3 style={{ fontSize: '1.3rem', fontWeight: 800, marginBottom: 8 }}>The Core Problem</h3>
+              <p style={{ color: 'var(--text-muted)', margin: 0, lineHeight: 1.6 }}>The digital landscape is experiencing a crisis of authenticity. Both Web2 data collection and Web3 ecosystems face severe threats from automated bot networks and Sybil attacks. TrueServe postulates that data is only valuable if its source is verifiably human and singular.</p>
+            </div>
+            <div style={{ background: 'var(--bg-card)', padding: 24, borderRadius: 16, border: '1px solid var(--border-light)' }}>
+              <h3 style={{ fontSize: '1.3rem', fontWeight: 800, marginBottom: 8 }}>The Solution</h3>
+              <p style={{ color: 'var(--text-muted)', margin: 0, lineHeight: 1.6 }}>By leveraging token-gated access, zero-knowledge proofs (ZKPs), and instant micro-payments on the Celo blockchain, TrueServe effectively eliminates bots. GoodDollar serves as the proof-of-personhood layer and primary economic asset for rewards.</p>
+            </div>
+            <div style={{ background: 'var(--bg-card)', padding: 24, borderRadius: 16, border: '1px solid var(--border-light)' }}>
+              <h3 style={{ fontSize: '1.3rem', fontWeight: 800, marginBottom: 8 }}>Dual-Sided Ecosystem</h3>
+              <p style={{ color: 'var(--text-muted)', margin: 0, lineHeight: 1.6 }}><strong>Creators:</strong> Pristine data quality, cost efficiency (no budget wasted on bots), global reach, and sovereign control via smart contracts. <br/><strong>Earners:</strong> Monetize attention instantly via self-custodied Celo wallets, build on-chain reputation, and participate globally.</p>
+            </div>
+          </div>
+        </section>
+
+        {/* GOODBUILDERS */}
+        <section id="goodbuilders" style={{ marginBottom: 80 }}>
+          <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: 24, borderBottom: '1px solid var(--border-light)', paddingBottom: 16 }}>GoodBuilders Application</h2>
+          <p style={{ color: 'var(--text-muted)', lineHeight: 1.6, marginBottom: 24 }}>
+            TrueServe is built to solve the crisis of digital identity and data integrity in Web3, providing a sovereign engine for human insights.
+          </p>
+          <div style={{ display: 'grid', gap: 24 }}>
+            <div style={{ background: 'var(--bg-card)', padding: 24, borderRadius: 16, border: '1px solid var(--border-light)' }}>
+              <h3 style={{ fontSize: '1.3rem', fontWeight: 800, marginBottom: 8 }}>Project Description</h3>
+              <p style={{ color: 'var(--text-muted)', margin: 0, lineHeight: 1.6 }}>A Sybil-resistant micro-task and survey platform on Celo that guarantees 100% human participation by utilizing GoodDollar's decentralized Identity Protocol.</p>
+            </div>
+            <div style={{ background: 'var(--bg-card)', padding: 24, borderRadius: 16, border: '1px solid var(--border-light)' }}>
+              <h3 style={{ fontSize: '1.3rem', fontWeight: 800, marginBottom: 8 }}>Value Proposition</h3>
+              <p style={{ color: 'var(--text-muted)', margin: 0, lineHeight: 1.6 }}>Eliminates bot farms and Sybil attackers from data collection. Researchers get pristine, verifiable data; users monetize their attention and receive instant G$ micro-payments.</p>
+            </div>
+            <div style={{ background: 'var(--bg-card)', padding: 24, borderRadius: 16, border: '1px solid var(--border-light)' }}>
+              <h3 style={{ fontSize: '1.3rem', fontWeight: 800, marginBottom: 8 }}>Tech Stack</h3>
+              <p style={{ color: 'var(--text-muted)', margin: 0, lineHeight: 1.6 }}>Built with React, Vite, Wagmi, and Viem. Smart contracts are deployed on Celo using Solidity. Data is stored decentrally via IPFS/Pinata, and identity is verified via GoodDollar SDK.</p>
+            </div>
           </div>
         </section>
 
