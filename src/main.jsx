@@ -13,15 +13,29 @@ import App from './App.jsx'
 
 const queryClient = new QueryClient()
 
-const projectId = import.meta.env.VITE_REOWN_PROJECT_ID || 'f1aa267ec8d8048f7b9300d2517538ee';
+// 1. Get projectId (Using Reown's official public demo ID to bypass planLimits bug)
+const projectId = import.meta.env.VITE_REOWN_PROJECT_ID || 'b56e18d47c72ab683b10814fe9495694';
 
+// 2. Create a metadata object
+const metadata = {
+  name: 'TrueServe',
+  description: '100% Human Web3 Network',
+  url: 'https://true-serve.vercel.app',
+  icons: ['https://avatars.githubusercontent.com/u/37784886']
+}
+
+// 3. Set the networks
 const networks = [celo, celoAlfajores]
 
 // 4. Create Wagmi Adapter
 const wagmiAdapter = new WagmiAdapter({
   networks,
   projectId,
-  ssr: true
+  ssr: true,
+  transports: {
+    [celo.id]: http('https://forno.celo.org'),
+    [celoAlfajores.id]: http('https://alfajores-forno.celo-testnet.org')
+  }
 })
 
 createAppKit({
