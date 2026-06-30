@@ -1,4 +1,5 @@
-import { ethers, run, artifacts } from "hardhat";
+import pkg from "hardhat";
+const { ethers, run, artifacts } = pkg;
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -7,7 +8,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // ─── Configuration ──────────────────────────────────────────────────────────
 // IMPORTANT: Replace with your actual platform fee wallet before deploying
-const PLATFORM_WALLET = process.env.PLATFORM_WALLET || "0x0000000000000000000000000000000000000001";
+const PLATFORM_WALLET = process.env.PLATFORM_WALLET || "0x033D986709c6c794C42a1259A8baeb6693de9444";
 
 async function main() {
   const [deployer] = await ethers.getSigners();
@@ -37,6 +38,11 @@ async function main() {
   console.log(`✅ TrueServe deployed!`);
   console.log(`   Contract Address : ${contractAddress}`);
   console.log(`   Tx Hash          : ${deployTx?.hash}`);
+
+  console.log(`\n👑 Transferring ownership to ${PLATFORM_WALLET}...`);
+  const transferTx = await trueServe.transferOwnership(PLATFORM_WALLET);
+  await transferTx.wait();
+  console.log(`   ✅ Ownership transferred successfully!`);
 
   const explorerBase = network.chainId === 42220n
     ? "https://celoscan.io"

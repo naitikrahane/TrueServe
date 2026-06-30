@@ -7,7 +7,8 @@ import {
 } from 'lucide-react';
 import {
   connectWallet, getGDollarBalance, getCreatorTasks,
-  getTaskSubmissions, approveWork, rejectWork, createTask, formatGD
+  getTaskSubmissions, approveWork, rejectWork, createTask, formatGD,
+  cancelTask, expireTask
 } from '../lib/goodDollar';
 import { uploadToIPFS, uploadFileToIPFS, ipfsToHttp } from '../lib/ipfs';
 
@@ -67,6 +68,28 @@ function CampaignAnalytics({ campaign, onBack }) {
     finally { setActionLoading(null); }
   };
 
+  const handleCancel = async () => {
+    setActionLoading('cancel');
+    setActionMsg({ text: 'Cancelling campaign & claiming refund…', type: 'info' });
+    try {
+      const { signer } = await connectWallet();
+      await cancelTask(signer, campaign.id);
+      setActionMsg({ text: 'Campaign cancelled! Refund claimed.', type: 'success' });
+    } catch (err) { setActionMsg({ text: err.message || 'Failed', type: 'error' }); }
+    finally { setActionLoading(null); }
+  };
+
+  const handleExpire = async () => {
+    setActionLoading('expire');
+    setActionMsg({ text: 'Expiring campaign & claiming refund…', type: 'info' });
+    try {
+      const { signer } = await connectWallet();
+      await expireTask(signer, campaign.id);
+      setActionMsg({ text: 'Campaign expired! Remaining budget refunded.', type: 'success' });
+    } catch (err) { setActionMsg({ text: err.message || 'Failed', type: 'error' }); }
+    finally { setActionLoading(null); }
+  };
+
   return (
     <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
       <button onClick={onBack} style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'none', border: 'none', color: 'var(--text-muted)', fontWeight: 600, cursor: 'pointer', marginBottom: 20, padding: 0 }}>
@@ -75,11 +98,25 @@ function CampaignAnalytics({ campaign, onBack }) {
 
       <div style={{ background: 'var(--bg-card)', borderRadius: 20, border: '1px solid var(--border-light)', overflow: 'hidden', boxShadow: '0 4px 24px rgba(0,0,0,0.04)' }}>
         {/* Campaign header */}
-        <div style={{ padding: '24px 28px', borderBottom: '1px solid var(--border-light)' }}>
-          <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-main)', marginBottom: 12 }}>{campaign.title}</h2>
-          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
-            <span style={{ background: 'var(--bg-main)', color: 'var(--text-main)', padding: '4px 10px', borderRadius: 99, fontWeight: 700, fontSize: '0.78rem', textTransform: 'uppercase' }}>{campaign.type || 'Survey'}</span>
-            <span style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>{campaign.submissionCount} / {campaign.maxSubmissions} completed</span>
+        <div style={{ padding: '24px 28px', borderBottom: '1px solid var(--border-light)', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 12 }}>
+          <div>
+            <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-main)', marginBottom: 12 }}>{campaign.title}</h2>
+            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
+              <span style={{ background: 'var(--bg-main)', color: 'var(--text-main)', padding: '4px 10px', borderRadius: 99, fontWeight: 700, fontSize: '0.78rem', textTransform: 'uppercase' }}>{campaign.type || 'Survey'}</span>
+              <span style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>{campaign.submissionCount} / {campaign.maxSubmissions} completed</span>
+            </div>
+          </div>
+          <div style={{ display: 'flex', gap: 8 }}>
+            {campaign.filledSlots === 0 && campaign.state !== 3 && campaign.state !== 4 && (
+              <button disabled={!!actionLoading} onClick={handleCancel} style={{ padding: '8px 16px', borderRadius: 12, border: '1px solid #FEE2E2', background: '#FEF2F2', color: '#EF4444', fontWeight: 700, cursor: 'pointer', fontSize: '0.85rem' }}>
+                Cancel & Refund
+              </button>
+            )}
+            {campaign.state !== 3 && campaign.state !== 4 && (
+              <button disabled={!!actionLoading} onClick={handleExpire} style={{ padding: '8px 16px', borderRadius: 12, border: '1px solid #FEF3C7', background: '#FFFBEB', color: '#D97706', fontWeight: 700, cursor: 'pointer', fontSize: '0.85rem' }}>
+                Expire & Refund
+              </button>
+            )}
           </div>
         </div>
 

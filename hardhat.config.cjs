@@ -29,10 +29,7 @@ module.exports = {
     },
   },
   etherscan: {
-    apiKey: {
-      celo: CELOSCAN_API_KEY,
-      alfajores: CELOSCAN_API_KEY,
-    },
+    apiKey: CELOSCAN_API_KEY,
     customChains: [
       {
         network: "celo",
@@ -51,6 +48,9 @@ module.exports = {
         },
       },
     ],
+  },
+  sourcify: {
+    enabled: false,
   },
   paths: {
     sources: "./contracts",
