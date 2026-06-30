@@ -33,14 +33,14 @@ createAppKit({
   metadata: {
     name: 'TrueServe',
     description: '100% Human Web3 Network',
-    url: window.location.origin,
+    url: 'http://localhost:5173', // Must use a defined string per docs
     icons: ['https://avatars.githubusercontent.com/u/37784886']
   },
   themeMode: 'light',
   features: {
     analytics: false,
     email: false,
-    socials: false
+    socials: []
   }
 })
 
