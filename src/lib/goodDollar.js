@@ -4,7 +4,7 @@
  */
 
 import { ethers } from 'ethers';
-import { GoodCollectiveSDK } from '@gooddollar/goodcollective-sdk';
+// import { GoodCollectiveSDK } from '@gooddollar/goodcollective-sdk';
 import { ClaimSDK } from '@gooddollar/web3sdk-v2';
 import TrueServeABI from './TrueServeABI.json';
 import { fetchFromIPFS } from './ipfs';
@@ -40,16 +40,8 @@ export const gdTokenReadOnly = new ethers.Contract(G_DOLLAR_ADDRESS, ERC20ABI, p
 
 // ─── GoodCollective SDK (lazy init) ───────────────────────────────────────
 export let goodCollective = null;
-try {
-  goodCollective = new GoodCollectiveSDK(CHAIN_ID, provider, { network: 'celo' });
-} catch (e) {
-  console.warn('GoodCollectiveSDK init warning:', e.message);
-  try {
-    goodCollective = new GoodCollectiveSDK(CHAIN_ID, provider);
-  } catch (err) {
-    console.warn('GoodCollectiveSDK completely failed to initialize. Using mock fallback.');
-  }
-}
+// Removed initialization to prevent "Cannot read properties of undefined (reading 'DirectPaymentsFactory')" error
+// as TrueServe uses its own native V2 contract architecture now.
 
 // ─── Helper: get TrueServe contract instance ─────────────────────────────
 function getContract(signerOrProvider) {
