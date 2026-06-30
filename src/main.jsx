@@ -31,7 +31,7 @@ createAppKit({
   metadata: {
     name: 'TrueServe',
     description: '100% Human Web3 Network',
-    url: 'http://localhost:5173', // Must use a defined string per docs
+    url: 'https://true-serve.vercel.app',
     icons: ['https://avatars.githubusercontent.com/u/37784886']
   },
   themeMode: 'light',
