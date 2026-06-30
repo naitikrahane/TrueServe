@@ -11,6 +11,15 @@ import { BrowserRouter } from 'react-router-dom';
 import './index.css'
 import App from './App.jsx'
 
+// Suppress harmless ethers.js/viem warnings about custom ABI errors
+const originalWarn = console.warn;
+console.warn = (...args) => {
+  if (args[0] && typeof args[0] === 'string' && args[0].includes('unsupported ABI type - error')) {
+    return;
+  }
+  originalWarn(...args);
+};
+
 const queryClient = new QueryClient()
 
 // 1. Get projectId (Using Reown's official public demo ID to bypass planLimits bug)
