@@ -17,13 +17,11 @@ const projectId = import.meta.env.VITE_REOWN_PROJECT_ID || 'f1aa267ec8d8048f7b93
 
 const networks = [celo, celoAlfajores]
 
+// 4. Create Wagmi Adapter
 const wagmiAdapter = new WagmiAdapter({
-  projectId,
   networks,
-  transports: {
-    [celo.id]: http('https://forno.celo.org'),
-    [celoAlfajores.id]: http('https://alfajores-forno.celo-testnet.org')
-  }
+  projectId,
+  ssr: true
 })
 
 createAppKit({
