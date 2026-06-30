@@ -648,11 +648,12 @@ export default function CreatorPanel({ user }) {
     setLoadingCampaigns(true);
     getCreatorTasks(address).then(tasks => {
       setCampaigns(tasks);
-      const totalEscrowed = tasks.reduce((acc, t) => acc + (parseFloat(formatGD(t.remainingBudget)) || 0), 0);
+      const parseGD = (val) => parseFloat(String(val).replace(/,/g, '')) || 0;
+      const totalEscrowed = tasks.reduce((acc, t) => acc + parseGD(formatGD(t.remainingBudget)), 0);
       let approved = 0, ubi = 0;
       for (const t of tasks) {
         approved += (t.filledSlots || 0);
-        ubi += (t.filledSlots || 0) * (parseFloat(formatGD(t.rewardPerUser)) || 0) * 0.02;
+        ubi += (t.filledSlots || 0) * parseGD(formatGD(t.rewardPerUser)) * 0.02;
       }
       setStats({
         escrowed: `${totalEscrowed.toLocaleString(undefined, { maximumFractionDigits: 0 })} G$`,
@@ -660,7 +661,11 @@ export default function CreatorPanel({ user }) {
         ubiContributed: `${ubi.toLocaleString(undefined, { maximumFractionDigits: 0 })} G$`,
       });
     }).catch(console.error).finally(() => setLoadingCampaigns(false));
-    getGDollarBalance(address).then(b => setRealBalance(parseFloat(b).toLocaleString(undefined, { maximumFractionDigits: 0 })));
+    
+    getGDollarBalance(address).then(b => {
+      const num = parseFloat(String(b).replace(/,/g, '')) || 0;
+      setRealBalance(num.toLocaleString(undefined, { maximumFractionDigits: 0 }));
+    });
   };
 
   useEffect(() => { fetchData(); }, [address]);
