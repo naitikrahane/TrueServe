@@ -13,7 +13,7 @@ import App from './App.jsx'
 
 const queryClient = new QueryClient()
 
-const projectId = import.meta.env.VITE_WALLETCONNECT_PROJECT_ID || 'ba832fa63d76b1f251e604f5ee35d8e1'; // Fallback to demo ID
+const projectId = import.meta.env.VITE_REOWN_PROJECT_ID || import.meta.env.VITE_WALLETCONNECT_PROJECT_ID || 'ba832fa63d76b1f251e604f5ee35d8e1';
 
 const networks = [celo, celoAlfajores]
 
