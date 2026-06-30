@@ -222,6 +222,24 @@ function LeaderboardView() {
 
 // ─── 5. Profile & Identity View ───────────────────────────────────────────
 function ProfileView({ user }) {
+  if (user && user.isWhitelisted === false) {
+    return (
+      <PremiumCard>
+        <SectionHeader title="Profile & Identity" subtitle="Manage your Proof of Humanity and platform standing." />
+        <div style={{ padding: '60px 20px', textAlign: 'center', background: '#FEF2F2', borderRadius: 24, border: '1px solid #FCA5A5' }}>
+          <div style={{ width: 64, height: 64, borderRadius: '50%', background: '#FEE2E2', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px' }}>
+            <Shield size={32} color="#EF4444" />
+          </div>
+          <h3 style={{ fontWeight: 800, color: '#991B1B', marginBottom: 12, fontSize: '1.4rem' }}>Identity Verification Required</h3>
+          <p style={{ color: '#991B1B', fontSize: '0.95rem', lineHeight: 1.7, maxWidth: 440, margin: '0 auto 24px', opacity: 0.9 }}>
+            You are currently logged in via Dev Mode. To build a Trust Score, accept tasks, and earn G$, you must verify your identity via the GoodDollar Face Verification protocol.
+          </p>
+          <button onClick={() => window.location.href = '/login'} style={{ padding: '12px 24px', borderRadius: 12, border: 'none', background: '#EF4444', color: '#ffffff', fontWeight: 700, cursor: 'pointer' }}>Go to Verification</button>
+        </div>
+      </PremiumCard>
+    );
+  }
+
   return (
     <PremiumCard>
       <SectionHeader title="Profile & Identity" subtitle="Manage your Proof of Humanity and platform standing." />
@@ -393,8 +411,11 @@ export default function TaskDashboard({ user }) {
                   </div>
                 )}
                 <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: 6 }}>
-                  <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#10B981' }} />
-                  GoodDollar Verified
+                  {user?.isWhitelisted === false ? (
+                    <><div style={{ width: 8, height: 8, borderRadius: '50%', background: '#EF4444' }} /> Unverified (View Only)</>
+                  ) : (
+                    <><div style={{ width: 8, height: 8, borderRadius: '50%', background: '#10B981' }} /> GoodDollar Verified</>
+                  )}
                 </div>
               </div>
             </div>

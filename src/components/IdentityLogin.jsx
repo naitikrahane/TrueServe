@@ -24,7 +24,7 @@ export default function IdentityLogin({ onLogin, onBack }) {
       const isVerified = await verifyIdentity(address);
       
       if (isVerified) {
-        onLogin({ id: address, role: 'user' });
+        onLogin({ id: address, role: 'user', isWhitelisted: true });
       } else {
         setErrorMsg('No verified GoodDollar Identity found for this wallet. Please complete face verification first.');
         setUnverifiedAddress(address);
@@ -142,7 +142,7 @@ export default function IdentityLogin({ onLogin, onBack }) {
             {/* Dev Mode Bypass */}
             <button
               className="btn-primary"
-              onClick={() => onLogin({ id: address, role: 'user' })}
+              onClick={() => onLogin({ id: address, role: 'user', isWhitelisted: false })}
               disabled={loading || !acceptedTerms}
               style={{ width: '100%', padding: '16px', fontSize: '1rem', background: 'var(--bg-main)', color: 'var(--text-muted)', border: '1px dashed var(--border-medium)', marginTop: 8, opacity: (!acceptedTerms) ? 0.5 : 1, cursor: (!acceptedTerms) ? 'not-allowed' : 'pointer' }}
             >
